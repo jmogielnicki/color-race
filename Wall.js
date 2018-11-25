@@ -1,5 +1,5 @@
 class Wall {
-    constructor(leftColor, rightColor, height) {
+    constructor(leftColor, rightColor, height, id) {
         this.leftColor = leftColor.map((colorValue) => {
             return colorValue - 5;
         });
@@ -12,6 +12,8 @@ class Wall {
         this.y = height;
         this.numSegments = 5;
         this.segments = [];
+        this.active = true;
+        this.queueTimer = 40;
         for (let index = 0; index < this.numSegments; index++) {
             let segmentColor;
             let segmentColorOriginal;
@@ -35,6 +37,8 @@ class Wall {
 
     update(speed) {
         this.y = this.y + speed;
+        this.y > height ? this.active = false : null;
+        this.queueTimer -= 1;
     }
 
     display() {
