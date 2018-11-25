@@ -45,7 +45,7 @@ let canSwitch = true;
 let numSpaces = 40;
 let nextWallTimer = 100;
 let gameHasEnded = false;
-let touchCoolDown = 5;
+let touchCoolDown = 10;
 let touchIsDown = false;
 
 const walls = [];
@@ -117,21 +117,20 @@ function draw() {
 
   nextWallTimer -= speed;
   random() > 0.999 ? speed += 0.5 : null;
+
+  touchCoolDown = touchIsDown ? touchCoolDown - 1 : touchCoolDown;
+  console.log(touchIsDown)
 }
 
 
 function mousePressed() {
-  // incrementColors();
+  touchIsDown = true;
 }
 
-// function touchStarted() {
-//   ellipse(mouseX, mouseY, 5, 5);
-//   // prevent default
-//   return false;
-// }
-
-function touchEnded() {
-  incrementColors();
-  // prevent default
-  return false;
+function mouseReleased() {
+  if (touchCoolDown > 0) {
+    incrementColors();
+  }
+  touchIsDown = false;
+  touchCoolDown = 10;
 }
