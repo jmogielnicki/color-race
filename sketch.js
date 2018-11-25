@@ -28,10 +28,10 @@ const colorOptions = colorOptionsAll.muted;
 const screenWidth = 380;
 const screenHeight = 600;
 let speed = 3;
-let backgroundColor = colorOptions[2];
-let leftColor = colorOptions[0];
-let rightColor = colorOptions[1];
-const playerHeight = 80;
+let currentColorIndex = 0;
+let leftColorIndex = 1;
+let rightColorIndex = 2;
+const playerHeight = 120;
 const ballRadius = 15;
 const switchOffset = 10;
 const switchWidth = 10;
@@ -45,14 +45,25 @@ let canSwitch = true;
 let numSpaces = 40;
 let nextWallTimer = 100;
 let gameHasEnded = false;
+let touchCoolDown = 5;
+let touchIsDown = false;
 
 const walls = [];
+
+function incrementColors() {
+  currentColorIndex = currentColorIndex + 1 >= colorOptions.length ? 0 : currentColorIndex + 1;
+  leftColorIndex = leftColorIndex + 1 >= colorOptions.length ? 0 : leftColorIndex + 1;
+  rightColorIndex = rightColorIndex + 1 >= colorOptions.length ? 0 : rightColorIndex + 1;
+}
 
 function setup() {
   createCanvas(screenWidth, screenHeight);
 }
 
 function draw() {
+  backgroundColor = colorOptions[currentColorIndex];
+  leftColor = colorOptions[leftColorIndex];
+  rightColor = colorOptions[rightColorIndex];
   background(backgroundColor);
   if (nextWallTimer < 1) {
     const colorKeys = Object.keys(colorOptions);
@@ -100,7 +111,8 @@ function draw() {
   //   canSwitch = true;
   // }
 
-
+  fill(0);
+  rect(0, height - 60, width, 60)
 
 
   nextWallTimer -= speed;
@@ -109,11 +121,17 @@ function draw() {
 
 
 function mousePressed() {
-  if (backgroundColor === colorOptions[0]) {
-    backgroundColor = colorOptions[1];
-  } else if (backgroundColor === colorOptions[1]) {
-    backgroundColor = colorOptions[2];
-  } else if (backgroundColor === colorOptions[2]) {
-    backgroundColor = colorOptions[0];
-  }
+  // incrementColors();
+}
+
+// function touchStarted() {
+//   ellipse(mouseX, mouseY, 5, 5);
+//   // prevent default
+//   return false;
+// }
+
+function touchEnded() {
+  incrementColors();
+  // prevent default
+  return false;
 }
