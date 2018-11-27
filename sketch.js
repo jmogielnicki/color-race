@@ -2,6 +2,7 @@ const screenWidth = 380;
 const screenHeight = 600;
 let touchIsDown = false;
 let touchCoolDown = 10;
+let game;
 const colorOptionsAll = {
   primary: [
     [200, 50, 40],
@@ -28,9 +29,14 @@ const colorOptionsAll = {
 const colorOptions = colorOptionsAll.muted;
 
 
+function gameEndHandler() {
+  console.log('starting new game')
+  game = new Game(colorOptions, gameEndHandler)
+}
+
 function setup() {
   createCanvas(screenWidth, screenHeight);
-  game = new Game(colorOptions);
+  game = new Game(colorOptions, gameEndHandler);
 }
 
 function draw() {
