@@ -1,4 +1,7 @@
-
+const screenWidth = 380;
+const screenHeight = 600;
+let touchIsDown = false;
+let touchCoolDown = 10;
 const colorOptionsAll = {
   primary: [
     [200, 50, 40],
@@ -22,98 +25,18 @@ const colorOptionsAll = {
   ]
 }
 
-
 const colorOptions = colorOptionsAll.muted;
 
-const screenWidth = 380;
-const screenHeight = 600;
-let speed = 3;
-let currentColorIndex = 0;
-let leftColorIndex = 1;
-let rightColorIndex = 2;
-const playerHeight = 60;
-let ballRadius = 15;
-let numSpaces = 40;
-let nextWallTimer = 100;
-let gameHasEnded = false;
-let touchCoolDown = 10;
-let touchIsDown = false;
-let playerX = 0;
-const playerEasing = 0.1;
-const spaceOptions = [10, 15, 20, 25];
-
-
-const walls = [];
-let backgrounds = [
-  {color: colorOptions[currentColorIndex], size: 2000},
-  {color: colorOptions[getNextColorIndex(currentColorIndex)], size: 30},
-  {color: colorOptions[getNextColorIndex(getNextColorIndex(currentColorIndex))], size: 10}
-];
-
-function incrementColors() {
-  currentColorIndex = currentColorIndex + 1 >= colorOptions.length ? 0 : currentColorIndex + 1;
-  leftColorIndex = leftColorIndex + 1 >= colorOptions.length ? 0 : leftColorIndex + 1;
-  rightColorIndex = rightColorIndex + 1 >= colorOptions.length ? 0 : rightColorIndex + 1;
-}
-
-function getNextColorIndex(currentIndex) {
-  return currentIndex + 1 >= colorOptions.length ? 0 : currentIndex + 1;
-}
 
 function setup() {
   createCanvas(screenWidth, screenHeight);
+  game = new Game(colorOptions);
 }
 
 function draw() {
-  backgroundColor = backgrounds[0].color;
-  leftColor = colorOptions[leftColorIndex];
-  rightColor = colorOptions[rightColorIndex];
-  background(backgroundColor);
-
-  // generate walls
-  if (nextWallTimer < 1) {
-    const colorKeys = Object.keys(colorOptions);
-    const randomColorLeftIndex = [Math.floor(Math.random() * colorKeys.length)];
-    const randomColorLeft = colorKeys.splice(randomColorLeftIndex, 1)
-    const randomColorRight = colorKeys[Math.floor(Math.random() * colorKeys.length)];
-    const wallHeight = 10
-    walls.push(new Wall(colorOptions[randomColorLeft], colorOptions[randomColorRight], wallHeight, walls.length));
-    numSpaces = random(spaceOptions)
-    nextWallTimer = numSpaces * 20;
-  }
-
-    // next color indicator
-    backgrounds.map((background) => {
-      fill(background.color);
-      ellipse(width/2, height, width * 1.2, background.size)
-    })
-  
-
-  walls.map((wall, index) => {
-    if (wall.active) {
-      wall.update(speed);
-      wall.display();
-      // pass in ball x, y, width, height as though it was rect()
-      wall.detectCollisions(backgroundColor, playerX - ballRadius, height - playerHeight - ballRadius, ballRadius * 2, ballRadius * 2)
-      wall.hasCollided ? gameHasEnded = true : null;
-    }
-  })
-
-  // draw the circle
-  const targetX = mouseX;
-  const dx = targetX - playerX;
-  playerX += dx * playerEasing;
-  fill(255);
-  noStroke();
-  ballRadius = gameHasEnded ? ballRadius - 6 : ballRadius;
-  ellipse(playerX, height - playerHeight, ballRadius*2, ballRadius*2);
-
-  nextWallTimer -= speed;
-  random() > 0.999 ? speed += 0.5 : null;
-
+  game.animate()
   touchCoolDown = touchIsDown ? touchCoolDown - 1 : touchCoolDown;
 }
-
 
 function mousePressed() {
   touchIsDown = true;
@@ -121,11 +44,7 @@ function mousePressed() {
 
 function mouseReleased() {
   if (touchCoolDown > 0) {
-    incrementColors();
-    backgrounds = [];
-    backgrounds.push({color: colorOptions[currentColorIndex], size: 2000})
-    backgrounds.push({color: colorOptions[getNextColorIndex(currentColorIndex)], size: 30})
-    backgrounds.push({color: colorOptions[getNextColorIndex(getNextColorIndex(currentColorIndex))], size: 10})
+    game.incrementColors();
   }
   touchIsDown = false;
   touchCoolDown = 10;
