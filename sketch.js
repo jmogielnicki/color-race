@@ -33,14 +33,6 @@ let leftColorIndex = 1;
 let rightColorIndex = 2;
 const playerHeight = 60;
 let ballRadius = 15;
-const switchOffset = 10;
-const switchWidth = 10;
-const switchHeight = 100;
-const leftSwitchPosition = switchOffset;
-const rightSwitchPotition = screenWidth - switchOffset;
-let isInLeftZone = false;
-let isInRightZone = false;
-let canSwitch = true;
 let numSpaces = 40;
 let nextWallTimer = 100;
 let gameHasEnded = false;
@@ -115,29 +107,6 @@ function draw() {
   noStroke();
   ballRadius = gameHasEnded ? ballRadius - 6 : ballRadius;
   ellipse(playerX, height - playerHeight, ballRadius*2, ballRadius*2);
-
-  //draw the side switches and detect if hit
-  // fill(leftColor);
-  // rect(0, height, switchWidth, 0 - switchHeight);
-  // fill(rightColor);
-  // rect(width - switchWidth, height, switchWidth, 0 - switchHeight);
-  // isInLeftZone = mouseX != 0 && mouseX < leftSwitchPosition + ballRadius;
-  // isInRightZone = mouseX != 0 && mouseX > rightSwitchPotition - ballRadius;
-  // if (canSwitch && isInLeftZone) {
-  //   const oldBackgroundColor = backgroundColor
-  //   backgroundColor = leftColor;
-  //   leftColor = oldBackgroundColor;
-  //   canSwitch = false;
-  // } else if (canSwitch && isInRightZone) {
-  //   const oldBackgroundColor = backgroundColor
-  //   backgroundColor = rightColor;
-  //   rightColor = oldBackgroundColor;
-  //   canSwitch = false;
-  // }
-  // if (!isInLeftZone && !isInRightZone) {
-  //   canSwitch = true;
-  // }
-
 
   nextWallTimer -= speed;
   random() > 0.999 ? speed += 0.5 : null;
