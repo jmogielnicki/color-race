@@ -1,4 +1,4 @@
-const screenWidth = 600;
+const screenWidth = 700;
 const screenHeight = 380;
 let touchIsDown = false;
 let touchCoolDown = 10;
@@ -44,14 +44,14 @@ function draw() {
   touchCoolDown = touchIsDown ? touchCoolDown - 1 : touchCoolDown;
 }
 
-function mousePressed() {
-  touchIsDown = true;
-}
+// function mousePressed() {
+//   touchIsDown = true;
+// }
 
-function mouseReleased() {
-  if (touchCoolDown > 0) {
-    game.incrementColors();
-  }
-  touchIsDown = false;
-  touchCoolDown = 10;
-}
+// function mouseReleased() {
+//   if (touchCoolDown > 0) {
+//     game.incrementColors();
+//   }
+//   touchIsDown = false;
+//   touchCoolDown = 10;
+// }

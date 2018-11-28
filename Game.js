@@ -6,13 +6,14 @@ class Game {
         this.coins = [];
         this.speed = 2;
         this.player = new Player(30, width/4, height/2, gameEndHandler);
-        // this.controls = new Controls();
+        this.controls = new Controls(this.colors, this.setColor.bind(this));
         this.numSpaces = 40;
         this.nextWallTimer = 100;
         this.spaceOptions = [10, 15, 20, 25];
-        this.currentColorIndex = 0;
-        this.nextColorIndex = 1;
-        this.afterNextColorIndex = 2;
+        // this.currentColorIndex = 0;
+        // this.nextColorIndex = 1;
+        // this.afterNextColorIndex = 2;
+        this.currentColor = this.colors[0];
         this.gameScore = 0;
     }
 
@@ -25,10 +26,16 @@ class Game {
         return colors[Math.floor(Math.random() * colors.length)]
     }
 
-    incrementColors() {
-        this.currentColorIndex = this.getNextIndex(this.currentColorIndex, this.colors);
-        this.nextColorIndex = this.getNextIndex(this.nextColorIndex, this.colors);
-        this.afterNextColorIndex = this.getNextIndex(this.afterNextColorIndex, this.colors);
+    // incrementColors() {
+    //     this.currentColorIndex = this.getNextIndex(this.currentColorIndex, this.colors);
+    //     this.nextColorIndex = this.getNextIndex(this.nextColorIndex, this.colors);
+    //     this.afterNextColorIndex = this.getNextIndex(this.afterNextColorIndex, this.colors);
+    // }
+
+    setColor(color) {
+        // console.log(color)
+        this.currentColor = color;
+        // console.log(this.currentColor)
     }
 
     killPlayer() {
@@ -49,9 +56,13 @@ class Game {
     
       
     animate() {
-        const backgroundColor = this.colors[this.currentColorIndex];
-        const nextColor = this.colors[this.nextColorIndex];
-        const afterNextColor = this.colors[this.afterNextColorIndex];
+        // const backgroundColor = this.colors[this.currentColorIndex];
+        const backgroundColor = this.currentColor;
+        console.log(backgroundColor)
+        console.log(this.currentColor);
+
+        // const nextColor = this.colors[this.nextColorIndex];
+        // const afterNextColor = this.colors[this.afterNextColorIndex];
         background(backgroundColor);
 
         this.gameScore = this.gameScore < this.player.score * 10 ? this.gameScore += 1 : this.gameScore;
@@ -68,14 +79,13 @@ class Game {
             // this.coins.push(new Coin(random(width), this.getRandomColor(), 20, this.pickUpCoin()))
         }
 
-        // this.controls.display()
         
         // next color indicator
         // fill(nextColor);
         // ellipse(width/2, height, width * 1.2, 30)
         // fill(afterNextColor);
         // ellipse(width/2, height, width * 1.2, 10)
-
+        
         
         
         this.walls.map((wall, index) => {
@@ -87,7 +97,7 @@ class Game {
                 }
             })
         })
-
+        
         this.coins.map((coin) => {
             coin.update()
             coin.display()
@@ -97,6 +107,8 @@ class Game {
         // draw the player
         this.player.update()
         this.player.display()
+
+        this.controls.display()
         
         this.nextWallTimer -= this.speed;
         this.speed += 0.001;
