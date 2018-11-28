@@ -5,7 +5,7 @@ class Game {
         this.walls = [];
         this.coins = [];
         this.speed = 2;
-        this.player = new Player(30, 240, 440, gameEndHandler);
+        this.player = new Player(30, width/4, height/2, gameEndHandler);
         // this.controls = new Controls();
         this.numSpaces = 40;
         this.nextWallTimer = 100;
@@ -65,16 +65,16 @@ class Game {
             this.numSpaces = random(this.spaceOptions)
             this.nextWallTimer = this.numSpaces * 20;
             // TODO - figure out if we should pass in method for pickupcoin and endGame to obstacles or not
-            this.coins.push(new Coin(random(width), this.getRandomColor(), 20, this.pickUpCoin()))
+            // this.coins.push(new Coin(random(width), this.getRandomColor(), 20, this.pickUpCoin()))
         }
 
         // this.controls.display()
         
         // next color indicator
-        fill(nextColor);
-        ellipse(width/2, height, width * 1.2, 30)
-        fill(afterNextColor);
-        ellipse(width/2, height, width * 1.2, 10)
+        // fill(nextColor);
+        // ellipse(width/2, height, width * 1.2, 30)
+        // fill(afterNextColor);
+        // ellipse(width/2, height, width * 1.2, 10)
 
         
         

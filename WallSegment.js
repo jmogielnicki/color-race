@@ -1,7 +1,8 @@
 class WallSegment extends Obstacle {
     constructor(color, x, y, width, height, onCollision) {
         super(color, 'rect');
-        this.x = x;
+        // this.x = x;
+        this.y = y;
         this.width = width;
         this.height = height;
         this.active = true;
@@ -14,7 +15,12 @@ class WallSegment extends Obstacle {
     }
 
     update(speed) {
-        this.y = this.y + speed;
-        this.y > height && (this.active = false);
+        // this.y = this.y + speed;
+        // this.y > height && (this.active = false);
+        // console.log(this.x)
+        // debugger
+        this.x -= speed;
+        this.x < 0 && (this.active = false);
+
     }
 }

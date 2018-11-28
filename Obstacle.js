@@ -2,6 +2,7 @@ class Obstacle {
     constructor(color, shape) {
         // start above visible screen
         this.y = -50;
+        this.x = width + 50;
         this.color = color;
         this.shape = shape;
         this.displayColor = this.color.map((colorValue) => {

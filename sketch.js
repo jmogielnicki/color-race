@@ -1,5 +1,5 @@
-const screenWidth = 380;
-const screenHeight = 600;
+const screenWidth = 600;
+const screenHeight = 380;
 let touchIsDown = false;
 let touchCoolDown = 10;
 let game;
