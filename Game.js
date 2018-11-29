@@ -6,8 +6,9 @@ class Game {
         this.coins = [];
         this.speed = 2;
         this.gameEndHandler = gameEndHandler;
-        this.player = new Player(30, width/4, height/2, this.gameEndHandler);
-        this.controls = new Controls(this.colors, this.setColor.bind(this));
+        this.controlsWidth = width/6;
+        this.player = new Player(30, width/4, height/2, this.gameEndHandler, this.controlsWidth);
+        this.controls = new Controls(this.colors, this.setColor.bind(this), this.controlsWidth);
         this.numSpaces = 40;
         this.nextWallTimer = 100;
         this.spaceOptions = [10, 15, 20, 25];

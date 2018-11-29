@@ -1,6 +1,7 @@
 class Player {
-    constructor(diameter, x, y, gameEndHandler) {
+    constructor(diameter, x, y, gameEndHandler, controlsWidth) {
         this.diameter = diameter;
+        this.controlsWidth = controlsWidth;
         this.radius = this.diameter/2;
         this.location = createVector(x, y);
         this.velocity = createVector(0, 0);
@@ -14,13 +15,7 @@ class Player {
     }
 
     update() {
-        // const targetX = mouseX;
-        // const dx = targetX - this.x;
-        // this.x += dx * this.easing;
-        // const targetY = mouseY;
-        // const dy = targetY - this.y;
-        // this.y += dy * this.easing;
-        mouseIsPressed && (this.velocity.y -= 0.5);
+        mouseIsPressed && mouseX > this.controlsWidth && (this.velocity.y -= 0.5);
         
         this.location.add(this.velocity);
         this.velocity.add(this.acceleration);

@@ -1,7 +1,7 @@
 class Controls {
-    constructor(colors, setColor) {
+    constructor(colors, setColor, width) {
         this.height = 120;
-        this.width = width/6;
+        this.width = width;
         this.colors = colors;
         this.numButtons = this.colors.length;
         this.colorButtons = [];
