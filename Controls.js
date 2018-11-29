@@ -17,6 +17,8 @@ class Controls {
 
     display() {
         fill(0);
+        stroke(0)
+        strokeWeight(2);
         rect(0, 0, this.width, height)
         this.colorButtons.map((colorButton) => {
             colorButton.display();

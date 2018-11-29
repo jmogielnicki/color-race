@@ -3,55 +3,48 @@ const screenHeight = 380;
 let touchIsDown = false;
 let touchCoolDown = 10;
 let game;
-const colorOptionsAll = {
-  primary: [
-    [200, 50, 40],
-    [40, 100, 200],
-    [247,182,10],
-  ],
+const colorPalettes = {
   muted: [
     [236,208,120],
     [83,119,122],
     [84,36,55],
+    [201,112,100],
+    [100,176,126],
+  ],
+  candy: [
+    [255, 224, 102],
+    [242, 95, 92],
+    [112, 193, 179],
+    [80, 81, 79],
+    [36, 123, 160],
   ],
   pastel: [
     [197,224,220],
     [236,229,206],
     [224,142,121],
+    [179,180,146],
+    [120,89,100],
   ],
-  wine: [
-    [140,35,24],
-    [242,196,90],
-    [94,140,106],
-  ]
 }
 
-const colorOptions = colorOptionsAll.muted;
+const colors = colorPalettes.muted.splice(0,3);
 
+function createNewGame() {
+  game = new Game(colors, gameEndHandler)
+}
 
 function gameEndHandler() {
   console.log('starting new game')
-  game = new Game(colorOptions, gameEndHandler)
+  game.pause()
+  window.setTimeout(createNewGame, 1000);
 }
 
 function setup() {
   createCanvas(windowWidth > 800 ? 800 : windowWidth, windowHeight > 500 ? 500 : windowHeight);
-  game = new Game(colorOptions, gameEndHandler);
+  game = new Game(colors, gameEndHandler);
 }
 
 function draw() {
   game.animate()
   touchCoolDown = touchIsDown ? touchCoolDown - 1 : touchCoolDown;
 }
-
-// function mousePressed() {
-//   touchIsDown = true;
-// }
-
-// function mouseReleased() {
-//   if (touchCoolDown > 0) {
-//     game.incrementColors();
-//   }
-//   touchIsDown = false;
-//   touchCoolDown = 10;
-// }
