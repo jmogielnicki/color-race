@@ -3,11 +3,15 @@ class Controls {
         this.height = 120;
         this.width = width/6;
         this.colors = colors;
+        this.numButtons = this.colors.length;
         this.colorButtons = [];
         this.setColor = setColor;
         this.colors.map((color, index) => {
-            const buttonDiameter = this.width*.8;
-            this.colorButtons.push(new ColorButton(color, this.width/2, height - (index + 1) * 100, buttonDiameter, this.setColor))
+            const xPos = 0;
+            const yPos = height/this.numButtons * index;
+            const segmentWidth = width/this.numButtons;
+            const segmentHeight = height/this.numButtons;
+            this.colorButtons.push(new ColorButton(color, xPos, yPos, this.width, segmentHeight, this.setColor));
         })
     }
 
@@ -16,14 +20,9 @@ class Controls {
         rect(0, 0, this.width, height)
         this.colorButtons.map((colorButton) => {
             colorButton.display();
-            colorButton.detectTouch();
+            if (mouseIsPressed && colorButton.isTouched()) {
+                this.setColor(colorButton.color);
+            }
         })
-        // fill(30);
-        // const controllerDiameter = 50;
-        // const controllerPadding = 20;
-        // ellipse(width - controllerDiameter - controllerPadding, height - this.height + controllerDiameter, controllerDiameter, controllerDiameter)
-    }
-
-    update() {
     }
 }

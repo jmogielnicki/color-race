@@ -6,7 +6,7 @@ class Wall {
         this.width = wallHeight;
         this.numWallSegments = numWallSegments;
         this.wallSegments = [];
-        for (let index = 0; index < this.numWallSegments + 2; index++) {
+        for (let index = 0; index < this.numWallSegments; index++) {
             const segmentColor = random() > 0.5 ? this.firstColor : this.secondColor;
             const xPos = width/this.numWallSegments * index;
             const yPos = height/this.numWallSegments * index;

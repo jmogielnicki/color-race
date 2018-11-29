@@ -24,8 +24,9 @@ class Player {
         
         this.location.add(this.velocity);
         this.velocity.add(this.acceleration);
-        this.diameter = this.hasDied ? this.diameter * 1.05 : this.diameter;
+        this.diameter = this.hasDied ? this.diameter * 1.2 : this.diameter;
         this.diameter > 10000 && this.gameEndHandler();
+        (this.location.y - this.radius < 0 || this.location.y + this.radius > height) && (this.hasDied = true);
     }
 
     display() {

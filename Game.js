@@ -5,7 +5,8 @@ class Game {
         this.walls = [];
         this.coins = [];
         this.speed = 2;
-        this.player = new Player(30, width/4, height/2, gameEndHandler);
+        this.gameEndHandler = gameEndHandler;
+        this.player = new Player(30, width/4, height/2, this.gameEndHandler);
         this.controls = new Controls(this.colors, this.setColor.bind(this));
         this.numSpaces = 40;
         this.nextWallTimer = 100;
@@ -33,7 +34,7 @@ class Game {
     // }
 
     setColor(color) {
-        // console.log(color)
+        console.log('setColor: ' , color)
         this.currentColor = color;
         // console.log(this.currentColor)
     }

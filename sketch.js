@@ -35,8 +35,7 @@ function gameEndHandler() {
 }
 
 function setup() {
-  createCanvas(windowWidth > 800 ? 800 : windowWidth, windowHeight > 400 ? 400 : windowHeight);
-  console.log(width)
+  createCanvas(windowWidth > 800 ? 800 : windowWidth, windowHeight > 500 ? 500 : windowHeight);
   game = new Game(colorOptions, gameEndHandler);
 }
 

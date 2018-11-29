@@ -13,8 +13,8 @@ class Obstacle {
     detectCollisions(currentColor, player) {
         if (this.shape == 'rect') {
             // we pretend player (ball) is a square
-            const playerLeftEdge = player.x - player.radius;
-            const playerTopEdge = player.y - player.radius;
+            const playerLeftEdge = player.location.x - player.radius;
+            const playerTopEdge = player.location.y - player.radius;
             if (currentColor != this.color &&
                 this.x < playerLeftEdge + player.diameter &&
                 this.x + this.width > playerLeftEdge &&
@@ -23,9 +23,26 @@ class Obstacle {
                     player.hasDied = true;
                 }
         } else if (this.shape == 'circle') {
-            if (!this.isCollected && dist(player.x, player.y, this.x, this.y) < this.height + player.radius) {
+            if (!this.isCollected && dist(player.location.x, player.location.y, this.x, this.y) < this.height + player.radius) {
                 this.isCollected = true;
                 player.score += 1;
+            }
+        }
+    }
+
+
+    isTouched() {
+        if (this.shape == 'rect') {
+            // we pretend player (ball) is a square
+            if (this.x < mouseX &&
+                this.x + this.width > mouseX &&
+                this.y < mouseY &&
+                this.y + this.height > mouseY) {
+                    return true;
+                }
+        } else if (this.shape == 'circle') {
+            if (dist(mouseX, mouseY, this.x, this.y) < this.height) {
+                return true
             }
         }
     }
