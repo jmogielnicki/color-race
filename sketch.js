@@ -36,7 +36,7 @@ function createNewGame() {
 function gameEndHandler() {
   console.log('starting new game')
   game.pause()
-  window.setTimeout(createNewGame, 1000);
+  window.setTimeout(createNewGame, 2000);
 }
 
 function setup() {
