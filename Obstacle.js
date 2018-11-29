@@ -6,7 +6,7 @@ class Obstacle {
         this.color = color;
         this.shape = shape;
         this.displayColor = this.color.map((colorValue) => {
-            return colorValue - 8;
+            return colorValue - 5;
         });
     }
 

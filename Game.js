@@ -58,8 +58,8 @@ class Game {
     animate() {
         // const backgroundColor = this.colors[this.currentColorIndex];
         const backgroundColor = this.currentColor;
-        console.log(backgroundColor)
-        console.log(this.currentColor);
+        // console.log(backgroundColor)
+        // console.log(this.currentColor);
 
         // const nextColor = this.colors[this.nextColorIndex];
         // const afterNextColor = this.colors[this.afterNextColorIndex];
