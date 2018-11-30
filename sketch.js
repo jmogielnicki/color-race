@@ -41,6 +41,7 @@ function gameEndHandler() {
 
 function setup() {
   createCanvas(windowWidth > 800 ? 800 : windowWidth, windowHeight > 500 ? 500 : windowHeight);
+  window.scrollTo(0,1);
   game = new Game(colors, gameEndHandler);
 }
 
